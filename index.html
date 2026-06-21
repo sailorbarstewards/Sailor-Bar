@@ -16,6 +16,18 @@ html, body, #map {
   height:100%;
   margin:0;
 }
+
+#opacity-control {
+ position: absolute;
+ top: 90px;
+ right: 10px;
+
+ background: white;
+ padding: 10px;
+ z-index: 1000;
+ border-radius: 4px;
+ box-shadow: 0 0 5px rgba(0,0,0,0.3);
+}
 </style>
 
 </head>
@@ -58,6 +70,14 @@ maxZoom:21,
 );
 
 hillshade.addTo(map);
+
+document
+ .getElementById('opacity-slider')
+ .addEventListener('input', function(e) {
+  hillshade.setOpacity(
+   e.target.value / 100
+   );
+ });
 
 var baseMaps = {
  "Satellite": esri
