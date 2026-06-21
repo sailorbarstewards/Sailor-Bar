@@ -26,7 +26,7 @@ html, body, #map {
 
 <script>
 
-var map = L.map('map').setView([38.63, -121.24], 17);
+var map = L.map('map').setView([38.638, -121.244], 16);
 
 var esri = L.tileLayer(
 'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',
@@ -37,6 +37,14 @@ attribution: 'Esri'
 );
 
 esri.addTo(map);
+
+var hillshade = L.titleLayer('tiles/Hillshade 2019 DEM/{x}/{y}/{z}.png',
+                             {
+                              opacity:0.5,
+                              maxZoom:20
+                             }
+                             );
+ hillshade.addTo(map);
 
 </script>
 
