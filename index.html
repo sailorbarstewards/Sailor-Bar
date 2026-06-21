@@ -38,14 +38,16 @@ attribution: 'Esri'
 
 esri.addTo(map);
 
-var hillshade = L.titleLayer(
- 'tiles/hillshade/{x}/{y}/{z}.png',
+
+var hillshade = L.tileLayer(
+'tiles/hillshade/{x}/{y}/{z}.png',
 {
-opacity:0.5,
-maxZoom:20
+maxZoom:20,
+opacity:0.5
 }
 );
- hillshade.addTo(map);
+
+hillshade.addTo(map);
 
 </script>
 
