@@ -96,6 +96,16 @@ html, body, #map {
         <label>
             Hillshade Opacity
         </label>
+        <br>
+
+        <label>
+    <input
+        type="checkbox"
+        id="park-toggle"
+        checked>
+
+           Park Boundary
+        </label>
 
         <input
             type="range"
@@ -110,7 +120,7 @@ html, body, #map {
 
         <p>
             • USGS 2019 3D Elevation Program Digital Elevation Model<br>
-            • Multidirectional hillshade<br>
+            • Sacramento County Parks Open GIS<br>
             • Esri World Imagery
         </p>
 
@@ -143,6 +153,32 @@ opacity:0.35
 
 hillshade.addTo(map);
 
+var parkBoundary;
+ fetch('data/park_boundary.geojson')
+.then(response => response.json())
+.then(data => {
+
+    parkBoundary = L.geoJSON(data, {
+
+        style: {
+
+            color: '#006400',
+
+            weight: 2,
+
+            fillColor: '#00aa00',
+
+            fillOpacity: 0.05
+
+        }
+
+    });
+
+    parkBoundary.addTo(map);
+
+});
+ 
+
 document
 .getElementById('opacity-slider')
 .addEventListener('input', function(e) {
@@ -164,6 +200,24 @@ document
     } else {
 
         map.removeLayer(hillshade);
+
+    }
+
+});
+
+document
+.getElementById('park-toggle')
+.addEventListener('change', function(e) {
+
+    if (!parkBoundary) return;
+
+    if (e.target.checked) {
+
+        map.addLayer(parkBoundary);
+
+    } else {
+
+        map.removeLayer(parkBoundary);
 
     }
 
