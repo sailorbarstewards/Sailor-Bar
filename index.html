@@ -24,6 +24,17 @@ html, body, #map {
 
 <div id="map"></div>
 
+<div id="opacity-control">
+ Hillshade Opacity
+ <input
+  type="range"
+  id="opacity-slider"
+  min="0"
+  max="100"
+  value="50">
+
+</div>
+
 <script>
 
 var map = L.map('map').setView([38.638, -121.244], 16);
@@ -43,11 +54,20 @@ var hillshade = L.tileLayer(
 'tiles/Hillshade/{z}/{x}/{y}.png',
 {
 maxZoom:21,
-opacity:0.5
 }
 );
 
 hillshade.addTo(map);
+
+var baseMaps = {
+ "Satellite": esri
+};
+
+var overlayMaps = {
+ "Lidar Hillshade": hillshade
+};
+
+L.control.layers(baseMaps, overlayMaps).addTo(map);
 
 </script>
 
