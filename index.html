@@ -29,11 +29,11 @@ html, body, #map {
 var map = L.map('map').setView([38.638, -121.244], 16);
 
 var hillshade = L.titleLayer('tiles/hillshade/{x}/{y}/{z}.png',
-                             {
-                              opacity:0.5,
-                              maxZoom:20
-                             }
-                             );
+{
+opacity:0.5,
+maxZoom:20
+}
+);
  hillshade.addTo(map);
 
 var esri = L.tileLayer(
