@@ -36,14 +36,53 @@ html, body, #map {
 
 <div id="map"></div>
 
-<div id="opacity-control">
- Hillshade Opacity
- <input
-  type="range"
-  id="opacity-slider"
-  min="0"
-  max="100"
-  value="50">
+<div id="sidebar">
+
+    <button id="toggle-sidebar">
+        ☰
+    </button>
+
+    <div id="sidebar-content">
+
+        <h2>Sailor Bar Explorer</h2>
+
+        <hr>
+
+        <h3>Layers</h3>
+
+        <label>
+            <input
+                type="checkbox"
+                id="hillshade-toggle"
+                checked>
+
+            Lidar Hillshade
+        </label>
+
+        <br><br>
+
+        <label>
+            Hillshade Opacity
+        </label>
+
+        <input
+            type="range"
+            id="opacity-slider"
+            min="0"
+            max="100"
+            value="35">
+
+        <hr>
+
+        <h3>Data Sources</h3>
+
+        <p>
+            • USGS 2019 3D Elevation Program Digital Elevation Model<br>
+            • Multidirectional hillshade<br>
+            • Esri World Imagery
+        </p>
+
+    </div>
 
 </div>
 
@@ -72,22 +111,51 @@ maxZoom:21,
 hillshade.addTo(map);
 
 document
- .getElementById('opacity-slider')
- .addEventListener('input', function(e) {
-  hillshade.setOpacity(
-   e.target.value / 100
-   );
- });
+.getElementById('opacity-slider')
+.addEventListener('input', function(e) {
 
-var baseMaps = {
- "Satellite": esri
-};
+    hillshade.setOpacity(
+        e.target.value / 100
+    );
 
-var overlayMaps = {
- "Lidar Hillshade": hillshade
-};
+});
 
-L.control.layers(baseMaps, overlayMaps).addTo(map);
+document
+.getElementById('hillshade-toggle')
+.addEventListener('change', function(e) {
+
+    if (e.target.checked) {
+
+        map.addLayer(hillshade);
+
+    } else {
+
+        map.removeLayer(hillshade);
+
+    }
+
+});
+
+document
+.getElementById('toggle-sidebar')
+.addEventListener('click', function() {
+
+    var panel =
+        document.getElementById(
+            'sidebar-content'
+        );
+
+    if (panel.style.display === 'none') {
+
+        panel.style.display = 'block';
+
+    } else {
+
+        panel.style.display = 'none';
+
+    }
+
+});
 
 </script>
 
