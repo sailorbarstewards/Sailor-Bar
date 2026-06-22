@@ -93,12 +93,7 @@ html, body, #map {
 
         <br><br>
 
-        <label>
-            Hillshade Opacity
-        </label>
-        <br>
-
-        <label>
+ <label>
     <input
         type="checkbox"
         id="park-toggle"
@@ -106,6 +101,12 @@ html, body, #map {
 
            Park Boundary
         </label>
+     <br><br>
+     
+        <label>
+            Hillshade Opacity
+        </label>
+        <br>
 
         <input
             type="range"
@@ -119,7 +120,7 @@ html, body, #map {
         <h3>Data Sources</h3>
 
         <p>
-            • USGS 2019 3D Elevation Program Digital Elevation Model<br>
+            • USGS 2019 Digital Elevation Model<br>
             • Sacramento County Parks Open GIS<br>
             • Esri World Imagery
         </p>
@@ -154,7 +155,7 @@ opacity:0.35
 hillshade.addTo(map);
 
 var parkBoundary;
- fetch('data/park_boundary.geojson')
+ fetch('data/American_River_Parks.geojson')
 .then(response => response.json())
 .then(data => {
 
