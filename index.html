@@ -132,6 +132,22 @@ html, body, #map {
     opacity: 0.9;
 
 }
+ 
+.sites-header {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 10px;
+
+}
+
+.sites-header h3 {
+
+    margin: 0;
+
+}
 
 </style>
 
@@ -391,12 +407,15 @@ High
         
 </details>
 
-<label>
-<input
-    type="checkbox"
-    id="sites-toggle">
-<h3>Stewardship Sites</h3>
-</label>
+<div class="sites-header">
+
+    <input
+        type="checkbox"
+        id="sites-toggle">
+
+    <h3>Stewardship Sites</h3>
+
+</div>
 
      <details open id="site-info-panel">
 
