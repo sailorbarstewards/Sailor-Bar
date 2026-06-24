@@ -98,12 +98,8 @@ html, body, #map {
         type="checkbox"
         id="park-toggle">
 
-           Park Boundary
-        </label>
-     <br><br>
-     
-        <label>
-            Hillshade Opacity
+          <label>
+            Lidar Hillshade Opacity
         </label>
         <br>
 
@@ -115,12 +111,24 @@ html, body, #map {
             value="35">
 
         <hr>
+        <br><br>
+           Park Boundary
+        </label>
+     <br><br>
+     <input
+        type="checkbox"
+        id="naip2009-toggle">
+
+           2009 Satellite
+        </label>
+     <br><br>
+    
 
         <h3>Data Sources</h3>
 
         <p>
             • USGS 2019 Digital Elevation Model<br>
-            • Sacramento County Parks Open GIS<br>
+            • NAIP 2008 Imagery<br>
             • Esri World Imagery
         </p>
 
@@ -135,12 +143,20 @@ var map = L.map('map').setView([38.638, -121.244], 16);
 var esri = L.tileLayer(
 'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',
 {
-maxZoom:20,
+maxZoom:21,
 attribution: 'Esri'
 }
 );
 
 esri.addTo(map);
+ 
+var naip2009 = L.tileLayer(
+'https://gis.wildlife.ca.gov/images/rest/services/Base_Remote_Sensing/NAIP_2009_NDVI/ImageServer{z}/{y}/{x}',
+{
+maxZoom:21,
+attribution: '2008 NAIP'
+}
+);
 
 
 var hillshade = L.tileLayer(
@@ -150,8 +166,6 @@ maxZoom:21,
 opacity:0.35
 }
 );
-
-hillshade.addTo(map);
 
 var parkBoundary;
  fetch('data/Sailor_Bar_Park.geojson')
@@ -198,6 +212,22 @@ document
     } else {
 
         map.removeLayer(hillshade);
+
+    }
+
+});
+
+document
+.getElementById('naip2009-toggle')
+.addEventListener('change', function(e) {
+
+    if (e.target.checked) {
+
+        map.addLayer(naip2009);
+
+    } else {
+
+        map.removeLayer(naip2009);
 
     }
 
