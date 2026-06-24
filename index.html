@@ -64,6 +64,19 @@ html, body, #map {
     cursor: pointer;
 }
 
+#hillshade-settings-btn,
+#naip-settings-btn {
+
+    margin-left: 10px;
+
+    padding: 2px 8px;
+
+    font-size: 11px;
+
+    cursor: pointer;
+
+}
+
 </style>
 
 </head>
@@ -86,26 +99,40 @@ html, body, #map {
 
         <h3>Layers</h3>
 
-        <label>
-            <input
-                type="checkbox"
-                id="hillshade-toggle"
-                checked>
+<label>
+    <input
+        type="checkbox"
+        id="hillshade-toggle"
+        checked>
 
-            Lidar Hillshade
-        </label>
+    Lidar Hillshade
+</label>
 
-        <br><br>
+<button
+    type="button"
+    id="hillshade-settings-btn">
 
-        <input
-            type="range"
-            id="opacity-slider"
-            min="0"
-            max="100"
-            value="35">
+    ⚙ Settings
 
-        <hr>
-     <br>
+</button>
+
+<div
+    id="hillshade-settings"
+    style="display:none; margin-left:20px; margin-top:5px;">
+
+    <small>Opacity</small>
+    <br>
+
+    <input
+        type="range"
+        id="opacity-slider"
+        min="0"
+        max="100"
+        value="35">
+
+</div>
+
+<br><br>
 
      <label>
     <input
@@ -119,18 +146,44 @@ html, body, #map {
     <input
         type="checkbox"
         id="naip2009-toggle">
+
     2009 Satellite
 </label>
-     <br><br>
+
+<button
+    type="button"
+    id="naip-settings-btn">
+
+    ⚙ Settings
+
+</button>
+
+<div
+    id="naip-settings"
+    style="display:none; margin-left:20px; margin-top:5px;">
+
+    <small>Opacity</small>
+    <br>
+
+    <input
+        type="range"
+        id="naip-opacity-slider"
+        min="0"
+        max="100"
+        value="100">
+
+</div>
+
+<br><br>
     
 
-        <h3>Data Sources</h3>
+        <h2>Data Sources</h2>
 
-        <p>
+        <small>
             • USGS 2019 Digital Elevation Model<br>
             • NAIP 2008 Imagery<br>
             • Esri World Imagery
-        </p>
+        </small>
 
     </div>
 
@@ -191,6 +244,16 @@ document
 .addEventListener('input', function(e) {
 
     hillshade.setOpacity(
+        e.target.value / 100
+    );
+
+});
+
+document
+.getElementById('naip-opacity-slider')
+.addEventListener('input', function(e) {
+
+    naip2009.setOpacity(
         e.target.value / 100
     );
 
@@ -264,6 +327,38 @@ document
         panel.style.display = 'none';
 
     }
+
+});
+
+document
+.getElementById('hillshade-settings-btn')
+.addEventListener('click', function() {
+
+    const panel =
+        document.getElementById(
+            'hillshade-settings'
+        );
+
+    panel.style.display =
+        panel.style.display === 'none'
+            ? 'block'
+            : 'none';
+
+});
+
+document
+.getElementById('naip-settings-btn')
+.addEventListener('click', function() {
+
+    const panel =
+        document.getElementById(
+            'naip-settings'
+        );
+
+    panel.style.display =
+        panel.style.display === 'none'
+            ? 'block'
+            : 'none';
 
 });
 
