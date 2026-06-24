@@ -133,7 +133,7 @@ html, body, #map {
         id="hillshade-toggle"
         checked>
 
-    Lidar Hillshade
+    Lidar Hillshade (Elevation map)
 </label>
 
 <button
@@ -248,7 +248,6 @@ var hillshade = L.esri.imageMapLayer({
     url: 'https://elevation.nationalmap.gov/arcgis/rest/services/3DEPElevation/ImageServer',
     opacity: 0.50
 });
-hillshade.addTo(map);
 
 var parkBoundary;
  fetch('data/Sailor_Bar_Park.geojson')
@@ -432,7 +431,7 @@ fetch('data/SailorBarSites.geojson')
 
                         '<div class="site-section">' +
 
-                        '<b>Plants Observed</b>' +
+                        '<b>Native Plant Species Observed</b>' +
 
                         plants +
 
