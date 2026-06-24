@@ -183,6 +183,34 @@ details summary {
 .info-box ul {
     padding-left: 18px;
 }
+
+.inat-source {
+
+    margin-top: 14px;
+
+    padding-top: 10px;
+
+    border-top: 1px solid #ddd;
+
+    font-size: 0.82rem;
+
+    color: #666;
+
+}
+
+.inat-source a {
+
+    color: #2E8B57;
+
+    text-decoration: none;
+
+}
+
+.inat-source a:hover {
+
+    text-decoration: underline;
+
+}
  
 .site-photo {
 
@@ -249,8 +277,7 @@ details summary {
 
            <input
              type="checkbox"
-             id="sites-toggle"
-               checked>
+             id="sites-toggle">
 
            <span class="section-label">
            Stewardship Sites
@@ -258,28 +285,18 @@ details summary {
 
             </div>
 
-          <details open>
+          <details open class="layer-settings">
 
-          <summary><b>Plant Species Filters</b></summary>
+          <summary>
 
-           <label class="master-filter">
-           <input type="checkbox" id="toggleAllPlants" checked>
-           All Plant Species
-           </label>
-
-           <label class="filter-item">
-          <input type="checkbox"
-          id="native-filter"
+           <input
+            type="checkbox"
+            id="toggleAllPlants"
             checked>
 
-           <span style="
-          display:inline-block;
-          width:12px;
-          height:12px;
-          border-radius:50%;
-          background:#2E8B57;
-          margin-right:6px;
-          "></span>
+        Plant Observations (iNaturalist)
+
+        <span class="info-link">ⓘ</span>
 
          Native
         <span id="native-count"></span>
@@ -313,7 +330,23 @@ details summary {
          Non-Native
          <span id="nonnative-count"></span>
          </label>
-         
+
+              <div class="inat-source">
+     
+         <span class="inat-icon">ⓘ</span>
+     
+         Observation data from
+     
+         <a
+            href="https://www.inaturalist.org/projects/sailor-bar-biodiversity"
+            target="_blank">
+     
+            Sailor Bar Biodiversity iNaturalist Project
+     
+         </a>
+     
+          </div>
+         </summary>
          <details style="margin-left:20px; margin-top:8px;">
          
          <summary>
