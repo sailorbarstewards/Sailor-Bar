@@ -22,14 +22,9 @@ body {
 
 }
 
-#gallery {
+#gallery a {
 
-    display: grid;
-
-    grid-template-columns:
-        repeat(auto-fit, minmax(300px, 1fr));
-
-    gap: 20px;
+    display: block;
 
 }
 
@@ -42,6 +37,8 @@ body {
     object-fit: cover;
 
     border-radius: 8px;
+
+    display: block;
 
 }
 
@@ -87,61 +84,44 @@ fetch('data/gallery.json')
 
     gallery.photos.forEach(photo => {
 
-const link =
-    document.createElement(
-        'a'
-    );
-
-link.href =
-    'images/' +
-    site +
-    '/' +
-    photo;
-
-link.dataset.pswpWidth =
-    1600;
-
-link.dataset.pswpHeight =
-    1200;
-
-const img =
-    document.createElement(
-        'img'
-    );
-
-img.src =
-    link.href;
-
-img.onerror = function() {
-
-    link.remove();
-
-};
-
-link.appendChild(
-    img
-);
-
-container.appendChild(
-    link
-);
-
-        img.src =
-            'images/' +
-            site +
-            '/' +
-            photo;
-        img.onerror = function() {
-
-    this.remove();
-
-};
-
-        container.appendChild(
-            img
+    const link =
+        document.createElement(
+            'a'
         );
 
-    });
+    link.href =
+        'images/' +
+        site +
+        '/' +
+        photo;
+
+    link.dataset.pswpWidth =
+        1600;
+
+    link.dataset.pswpHeight =
+        1200;
+
+    const img =
+        document.createElement(
+            'img'
+        );
+
+    img.src =
+        link.href;
+
+    img.onerror = function() {
+
+        link.remove();
+
+    };
+
+    link.appendChild(
+        img
+    );
+
+    container.appendChild(
+        link
+    );
 
 });
 
