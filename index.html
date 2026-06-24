@@ -161,12 +161,15 @@ attribution: '2008 NAIP'
 
 
 var hillshade = L.tileLayer(
-'tiles/Hillshade/{z}/{x}/{y}.png',
+'https://elevation.nationalmap.gov/arcgis/rest/services/3DEPElevation/ImageServer/tile/{z}/{x}/{y}.png',
 {
 maxZoom:21,
 opacity:0.35
+attribution: 'USGS 3DEP'
 }
 );
+hillshade.addTo(map);
+
 
 var parkBoundary;
  fetch('data/Sailor_Bar_Park.geojson')
