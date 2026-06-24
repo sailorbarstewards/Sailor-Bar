@@ -11,6 +11,10 @@
  src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js">
 </script>
 
+<script
+ src="https://unpkg.com/esri-leaflet@3.0.14/dist/esri-leaflet.js">
+</script>
+
 <style>
 
 html, body, #map {
@@ -60,6 +64,19 @@ html, body, #map {
     cursor: pointer;
 }
 
+#hillshade-settings-btn,
+#naip-settings-btn {
+
+    margin-left: 10px;
+
+    padding: 2px 8px;
+
+    font-size: 11px;
+
+    cursor: pointer;
+
+}
+
 </style>
 
 </head>
@@ -82,48 +99,91 @@ html, body, #map {
 
         <h3>Layers</h3>
 
-        <label>
-            <input
-                type="checkbox"
-                id="hillshade-toggle"
-                checked>
-
-            Lidar Hillshade
-        </label>
-
-        <br><br>
-
- <label>
+<label>
     <input
         type="checkbox"
-        id="park-toggle"
+        id="hillshade-toggle"
         checked>
 
-           Park Boundary
-        </label>
-     <br><br>
-     
-        <label>
-            Hillshade Opacity
-        </label>
+    Lidar Hillshade
+</label>
+
+<button
+    type="button"
+    id="hillshade-settings-btn">
+
+    Settings
+
+</button>
+
+<div
+    id="hillshade-settings"
+    style="display:none; margin-left:20px; margin-top:5px;">
+
+    <small>Opacity</small>
+    <br>
+
+    <input
+        type="range"
+        id="opacity-slider"
+        min="0"
+        max="100"
+        value="35">
+
+</div>
+
+<br><br>
+
+     <label>
+    <input
+        type="checkbox"
+        id="park-toggle">
+    Park Boundary
+</label>
         <br>
+     
+     <label>
+    <input
+        type="checkbox"
+        id="naip2009-toggle">
 
-        <input
-            type="range"
-            id="opacity-slider"
-            min="0"
-            max="100"
-            value="35">
+    2009 Satellite
+</label>
 
-        <hr>
+<button
+    type="button"
+    id="naip-settings-btn">
 
-        <h3>Data Sources</h3>
+    Settings
 
-        <p>
+</button>
+
+<div
+    id="naip-settings"
+    style="display:none; margin-left:20px; margin-top:5px;">
+
+    <small>Opacity</small>
+    <br>
+
+    <input
+        type="range"
+        id="naip-opacity-slider"
+        min="0"
+        max="100"
+        value="100">
+
+</div>
+
+<br><br>
+    
+
+        <h4>Data Sources</h4>
+
+        <small>
             • USGS 2019 Digital Elevation Model<br>
-            • Sacramento County Parks Open GIS<br>
+            • NAIP 2008 Imagery<br>
             • Esri World Imagery
-        </p>
+        </small>
 
     </div>
 
@@ -136,26 +196,27 @@ var map = L.map('map').setView([38.638, -121.244], 16);
 var esri = L.tileLayer(
 'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',
 {
-maxZoom:20,
+maxZoom:21,
 attribution: 'Esri'
 }
 );
 
 esri.addTo(map);
+ 
+var naip2009 = L.esri.imageMapLayer({
+    url: 'https://gis.wildlife.ca.gov/images/rest/services/Base_Remote_Sensing/NAIP_2009/ImageServer',
+    opacity: 1
+});
 
 
-var hillshade = L.tileLayer(
-'tiles/Hillshade/{z}/{x}/{y}.png',
-{
-maxZoom:21,
-opacity:0.35
-}
-);
-
+var hillshade = L.esri.imageMapLayer({
+    url: 'https://elevation.nationalmap.gov/arcgis/rest/services/3DEPElevation/ImageServer',
+    opacity: 0.50
+});
 hillshade.addTo(map);
 
 var parkBoundary;
- fetch('data/American_River_Parks.geojson')
+ fetch('data/Sailor_Bar_Park.geojson')
 .then(response => response.json())
 .then(data => {
 
@@ -169,13 +230,11 @@ var parkBoundary;
 
             fillColor: '#00aa00',
 
-            fillOpacity: 0.05
+            fillOpacity: 0.15
 
         }
 
     });
-
-    parkBoundary.addTo(map);
 
 });
  
@@ -185,6 +244,16 @@ document
 .addEventListener('input', function(e) {
 
     hillshade.setOpacity(
+        e.target.value / 100
+    );
+
+});
+
+document
+.getElementById('naip-opacity-slider')
+.addEventListener('input', function(e) {
+
+    naip2009.setOpacity(
         e.target.value / 100
     );
 
@@ -201,6 +270,22 @@ document
     } else {
 
         map.removeLayer(hillshade);
+
+    }
+
+});
+
+document
+.getElementById('naip2009-toggle')
+.addEventListener('change', function(e) {
+
+    if (e.target.checked) {
+
+        map.addLayer(naip2009);
+
+    } else {
+
+        map.removeLayer(naip2009);
 
     }
 
@@ -242,6 +327,38 @@ document
         panel.style.display = 'none';
 
     }
+
+});
+
+document
+.getElementById('hillshade-settings-btn')
+.addEventListener('click', function() {
+
+    const panel =
+        document.getElementById(
+            'hillshade-settings'
+        );
+
+    panel.style.display =
+        panel.style.display === 'none'
+            ? 'block'
+            : 'none';
+
+});
+
+document
+.getElementById('naip-settings-btn')
+.addEventListener('click', function() {
+
+    const panel =
+        document.getElementById(
+            'naip-settings'
+        );
+
+    panel.style.display =
+        panel.style.display === 'none'
+            ? 'block'
+            : 'none';
 
 });
 
