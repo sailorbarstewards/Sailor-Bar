@@ -97,7 +97,11 @@ html, body, #map {
     <input
         type="checkbox"
         id="park-toggle">
-
+<label>
+           Park Boundary
+        </label>
+     <br><br>
+  
           <label>
             Lidar Hillshade Opacity
         </label>
@@ -111,10 +115,7 @@ html, body, #map {
             value="35">
 
         <hr>
-        <br><br>
-           Park Boundary
-        </label>
-     <br><br>
+       
      <input
         type="checkbox"
         id="naip2009-toggle">
@@ -151,7 +152,7 @@ attribution: 'Esri'
 esri.addTo(map);
  
 var naip2009 = L.tileLayer(
-'https://gis.wildlife.ca.gov/images/rest/services/Base_Remote_Sensing/NAIP_2009_NDVI/ImageServer{z}/{y}/{x}',
+'https://gis.wildlife.ca.gov/images/rest/services/Base_Remote_Sensing/NAIP_2009/ImageServer/tile/{z}/{y}/{x}',
 {
 maxZoom:21,
 attribution: '2008 NAIP'
