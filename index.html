@@ -77,6 +77,34 @@ html, body, #map {
 
 }
 
+#site-info {
+
+    font-size: 13px;
+
+    line-height: 1.4;
+
+    max-height: 350px;
+
+    overflow-y: auto;
+
+}
+
+.site-title {
+
+    margin-top: 0;
+
+    margin-bottom: 8px;
+
+    color: #1f5f1f;
+
+}
+
+.site-section {
+
+    margin-top: 10px;
+
+}
+
 </style>
 
 </head>
@@ -132,8 +160,6 @@ html, body, #map {
 
 </div>
 
-<br><br>
-
      <label>
     <input
         type="checkbox"
@@ -174,10 +200,29 @@ html, body, #map {
 
 </div>
 
+<label>
+    <input
+        type="checkbox"
+        id="sites-toggle">
+
+    Stewardship Sites
+</label>
+
+<br><br>
+
 <br><br>
     
+<hr>
 
-        <h4>Data Sources</h4>
+<h3>Site Information</h3>
+
+<div id="site-info">
+
+    Click a site to view details.
+
+</div>
+     
+        Data Sources
 
         <small>
             • USGS 2019 Digital Elevation Model<br>
@@ -215,6 +260,35 @@ var hillshade = L.esri.imageMapLayer({
 });
 hillshade.addTo(map);
 
+var restorationSites;
+
+fetch('data/SailorBarSites.geojson')
+.then(response => response.json())
+.then(data => {
+
+    restorationSites = L.geoJSON(data, {
+
+        style: {
+            color: '#228B22',
+            weight: 2,
+            fillOpacity: 0.4
+        },
+
+        onEachFeature: function(feature, layer) {
+
+            layer.bindPopup(
+                '<h3>' + feature.properties.SiteName + '</h3>' +
+                '<b>Status:</b> ' + feature.properties.Status + '<br>' +
+                '<b>Species:</b><br>' +
+                feature.properties.Species
+            );
+
+        }
+
+    });
+
+});
+
 var parkBoundary;
  fetch('data/Sailor_Bar_Park.geojson')
 .then(response => response.json())
@@ -231,6 +305,188 @@ var parkBoundary;
             fillColor: '#00aa00',
 
             fillOpacity: 0.15
+
+        }
+
+    });
+
+});
+
+var restorationSites;
+
+fetch('data/SailorBarSites.geojson')
+
+.then(response => response.json())
+
+.then(data => {
+
+    restorationSites = L.geoJSON(data, {
+
+        style: function(feature) {
+
+            if (
+                feature.properties["Status"] ===
+                "Active"
+            ) {
+
+                return {
+
+                    color: "#2E8B57",
+
+                    fillColor: "#2E8B57",
+
+                    weight: 2,
+
+                    fillOpacity: 0.35
+
+                };
+
+            }
+
+            return {
+
+                color: "#B8860B",
+
+                fillColor: "#DAA520",
+
+                weight: 2,
+
+                fillOpacity: 0.35
+
+            };
+
+        },
+
+        onEachFeature: function(
+            feature,
+            layer
+        ) {
+
+            layer.on(
+                'mouseover',
+                function() {
+
+                    this.setStyle({
+
+                        weight: 4,
+
+                        fillOpacity: 0.6
+
+                    });
+
+                }
+            );
+
+            layer.on(
+                'mouseout',
+                function() {
+
+                    restorationSites.resetStyle(
+                        this
+                    );
+
+                }
+            );
+
+            layer.on(
+                'click',
+                function() {
+
+                    map.fitBounds(
+                        layer.getBounds()
+                    );
+
+                    let plants =
+                        feature.properties[
+                            "Plants"
+                        ];
+
+                    if (
+                        plants &&
+                        plants !== "TBD"
+                    ) {
+
+                        plants = plants
+
+                            .split(',')
+
+                            .map(
+                                p =>
+                                '<li><i>' +
+                                p.trim() +
+                                '</i></li>'
+                            )
+
+                            .join('');
+
+                        plants =
+                            '<ul>' +
+                            plants +
+                            '</ul>';
+
+                    } else {
+
+                        plants =
+                            'No plant list available.';
+
+                    }
+
+                    let progress =
+                        feature.properties[
+                            "Progress"
+                        ];
+
+                    if (
+                        !progress
+                    ) {
+
+                        progress =
+                            'No progress notes available.';
+                    }
+
+                    document
+                        .getElementById(
+                            'site-info'
+                        )
+
+                        .innerHTML =
+
+                        '<h3 class="site-title">' +
+
+                        feature.properties[
+                            "Site Name"
+                        ] +
+
+                        '</h3>' +
+
+                        '<div class="site-section">' +
+
+                        '<b>Status:</b> ' +
+
+                        feature.properties[
+                            "Status"
+                        ] +
+
+                        '</div>' +
+
+                        '<div class="site-section">' +
+
+                        '<b>Plants Observed</b>' +
+
+                        plants +
+
+                        '</div>' +
+
+                        '<div class="site-section">' +
+
+                        '<b>Progress</b><br>' +
+
+                        progress +
+
+                        '</div>';
+
+                }
+            );
 
         }
 
@@ -359,6 +615,28 @@ document
         panel.style.display === 'none'
             ? 'block'
             : 'none';
+
+});
+
+document
+.getElementById('sites-toggle')
+.addEventListener('change', function(e) {
+
+    if (!restorationSites) return;
+
+    if (e.target.checked) {
+
+        map.addLayer(
+            restorationSites
+        );
+
+    } else {
+
+        map.removeLayer(
+            restorationSites
+        );
+
+    }
 
 });
 
