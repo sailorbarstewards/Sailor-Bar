@@ -112,7 +112,7 @@ html, body, #map {
     type="button"
     id="hillshade-settings-btn">
 
-    ⚙ Settings
+    Settings
 
 </button>
 
@@ -154,7 +154,7 @@ html, body, #map {
     type="button"
     id="naip-settings-btn">
 
-    ⚙ Settings
+    Settings
 
 </button>
 
@@ -177,7 +177,7 @@ html, body, #map {
 <br><br>
     
 
-        <h2>Data Sources</h2>
+        <h4>Data Sources</h4>
 
         <small>
             • USGS 2019 Digital Elevation Model<br>
@@ -211,7 +211,7 @@ var naip2009 = L.esri.imageMapLayer({
 
 var hillshade = L.esri.imageMapLayer({
     url: 'https://elevation.nationalmap.gov/arcgis/rest/services/3DEPElevation/ImageServer',
-    opacity: 0.35
+    opacity: 0.50
 });
 hillshade.addTo(map);
 
