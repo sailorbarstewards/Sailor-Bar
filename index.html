@@ -693,6 +693,7 @@ function updateCategoryCounts() {
 
             else if (ipc === "High")
                 highCount++;
+
         }
 
     });
@@ -731,6 +732,19 @@ function updateCategoryCounts() {
         "high-count"
     ).innerHTML =
         " (" + highCount + ")";
+
+    document.getElementById(
+        "nonnative-count"
+    ).innerHTML =
+        " (" +
+        (
+            introducedCount +
+            watchCount +
+            limitedCount +
+            moderateCount +
+            highCount
+        ) +
+        ")";
 }
 
 function updateObservations() {
@@ -988,18 +1002,6 @@ document
 
 });
 
-document.getElementById(
-    "nonnative-count"
-).innerHTML =
-    " (" +
-    (
-        introducedCount +
-        watchCount +
-        limitedCount +
-        moderateCount +
-        highCount
-    ) +
-    ")";
  
 document
 .getElementById('sites-toggle')
