@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+<meta charset="utf-8">
+
+<title>Site Gallery</title>
+
+<style>
+
+body {
+
+    max-width: 1200px;
+    margin: auto;
+    padding: 20px;
+    font-family: Arial, sans-serif;
+
+}
+
+#gallery {
+
+    display: grid;
+    grid-template-columns:
+        repeat(auto-fill,minmax(250px,1fr));
+
+    gap: 15px;
+
+}
+
+#gallery img {
+
+    width: 100%;
+    border-radius: 8px;
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<h1 id="title"></h1>
+
+<div id="gallery"></div>
+
+<script>
+
+const params =
+    new URLSearchParams(
+        window.location.search
+    );
+
+const site =
+    params.get('site');
+
+fetch('data/galleries.json')
+
+.then(response => response.json())
+
+.then(data => {
+
+    const gallery =
+        data[site];
+
+    document
+        .getElementById('title')
+        .textContent =
+            gallery.title;
+
+    const container =
+        document
+            .getElementById(
+                'gallery'
+            );
+
+    gallery.photos.forEach(photo => {
+
+        const img =
+            document.createElement(
+                'img'
+            );
+
+        img.src =
+            'images/' +
+            site +
+            '/' +
+            photo;
+
+        container.appendChild(
+            img
+        );
+
+    });
+
+});
+
+</script>
+
+</body>
+
+</html>
