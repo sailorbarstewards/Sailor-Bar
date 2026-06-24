@@ -359,18 +359,20 @@ High
     
 <hr>
 
+<h3>Stewardship Sites</h3>
+
+<label>
+<input
+    type="checkbox"
+    id="sites-toggle">
+Show Stewardship Sites
+</label>
+
+<hr>
+
 <h3>Site Information</h3>
 
 <div id="site-info">
-
-<label>
-    <input
-        type="checkbox"
-        id="sites-toggle">
-
-    Stewardship Sites
-</label>
- <br><br>
 
     Click a site to view details.
 
@@ -557,7 +559,7 @@ fetch('data/SailorBarSites.geojson')
                     } else {
 
                         plants =
-                            'No plant list available.';
+                     '<p>No plant list available.</p>';
 
                     }
 
@@ -601,9 +603,8 @@ fetch('data/SailorBarSites.geojson')
 
                         '<div class="site-section">' +
 
-                        '<b>Native Plant Species Observed</b>' +
-
-                        plants +
+                        '<b>Native Plant Species Observed</b><br>' +
+                         plants +
 
                         '</div>' +
 
