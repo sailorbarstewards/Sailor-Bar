@@ -1,0 +1,45 @@
+"GallerySite":"BuckwheatRidge"
+"GallerySite":"OliveBeach"
+{
+  "BuckwheatRidge": {
+    "title": "Buckwheat Ridge",
+    "description": "",
+    "hero": "IMG_1124.jpeg",
+    "photos": [
+      "IMG_1090.jpeg",
+      "IMG_1092.jpeg",
+      "IMG_1095.jpeg",
+      "IMG_1103.jpeg",
+      "IMG_1124.jpeg",
+      "IMG_9555.JPG",
+      "IMG_9566.JPG",
+      "IMG_9591.JPG"
+    ]
+  },
+
+  "OliveBeach": {
+    "title": "Olive Beach",
+    "description": "",
+    "hero": "IMG_1906.jpeg",
+    "photos": [
+      "9D4ADA24.JPG",
+      "IMG_0391.jpeg",
+      "IMG_1078.jpeg",
+      "IMG_1190.jpeg",
+      "IMG_1207.jpeg",
+      "IMG_1338.jpeg",
+      "IMG_1340.jpeg",
+      "IMG_1655.jpeg",
+      "IMG_1657.jpeg",
+      "IMG_1906.jpeg",
+      "IMG_1907.jpeg",
+      "IMG_1908.jpeg",
+      "IMG_2270.jpeg",
+      "IMG_9555.JPG",
+      "IMG_9568.JPG",
+      "IMG_9702.JPG",
+      "IMG_9703.JPG",
+      "IMG_9725.JPG"
+    ]
+  }
+}
