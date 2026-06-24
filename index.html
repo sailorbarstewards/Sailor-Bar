@@ -11,6 +11,10 @@
  src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js">
 </script>
 
+<script
+ src="https://unpkg.com/esri-leaflet@3.0.14/dist/esri-leaflet.js">
+</script>
+
 <style>
 
 html, body, #map {
@@ -98,13 +102,11 @@ html, body, #map {
         type="checkbox"
         id="park-toggle">
 <label>
-           Park Boundary
-        </label>
-     <br><br>
-  
-          <label>
-            Lidar Hillshade Opacity
-        </label>
+    <input
+        type="checkbox"
+        id="park-toggle">
+    Park Boundary
+</label>
         <br>
 
         <input
@@ -116,12 +118,12 @@ html, body, #map {
 
         <hr>
        
-     <input
+     <label>
+    <input
         type="checkbox"
         id="naip2009-toggle">
-
-           2009 Satellite
-        </label>
+    2009 Satellite
+</label>
      <br><br>
     
 
@@ -151,17 +153,16 @@ attribution: 'Esri'
 
 esri.addTo(map);
  
-var naip2009 = L.esri.ImageMapLayer({
+var naip2009 = L.esri.imageMapLayer({
     url: 'https://gis.wildlife.ca.gov/images/rest/services/Base_Remote_Sensing/NAIP_2009/ImageServer',
     opacity: 1
 });
 
 
-var hillshade = L.esri.ImageMapLayer({
+var hillshade = L.esri.imageMapLayer({
     url: 'https://elevation.nationalmap.gov/arcgis/rest/services/3DEPElevation/ImageServer',
-    opacity: 1
-}
-);
+    opacity: 0.35
+});
 hillshade.addTo(map);
 
 var parkBoundary;
