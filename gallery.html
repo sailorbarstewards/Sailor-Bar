@@ -6,6 +6,10 @@
 <meta charset="utf-8">
 
 <title>Site Gallery</title>
+    
+<link
+rel="stylesheet"
+href="https://cdn.jsdelivr.net/npm/photoswipe@5/dist/photoswipe.css">
 
 <style>
 
@@ -77,16 +81,55 @@ fetch('data/gallery.json')
 
     gallery.photos.forEach(photo => {
 
-        const img =
-            document.createElement(
-                'img'
-            );
+const link =
+    document.createElement(
+        'a'
+    );
+
+link.href =
+    'images/' +
+    site +
+    '/' +
+    photo;
+
+link.dataset.pswpWidth =
+    1600;
+
+link.dataset.pswpHeight =
+    1200;
+
+const img =
+    document.createElement(
+        'img'
+    );
+
+img.src =
+    link.href;
+
+img.onerror = function() {
+
+    link.remove();
+
+};
+
+link.appendChild(
+    img
+);
+
+container.appendChild(
+    link
+);
 
         img.src =
             'images/' +
             site +
             '/' +
             photo;
+        img.onerror = function() {
+
+    this.remove();
+
+};
 
         container.appendChild(
             img
@@ -95,6 +138,29 @@ fetch('data/gallery.json')
     });
 
 });
+
+</script>
+
+ <script type="module">
+
+import PhotoSwipeLightbox
+from 'https://cdn.jsdelivr.net/npm/photoswipe@5/dist/photoswipe-lightbox.esm.min.js';
+
+const lightbox =
+new PhotoSwipeLightbox({
+
+    gallery: '#gallery',
+
+    children: 'a',
+
+    pswpModule: () =>
+        import(
+'https://cdn.jsdelivr.net/npm/photoswipe@5/dist/photoswipe.esm.min.js'
+        )
+
+});
+
+lightbox.init();
 
 </script>
 
