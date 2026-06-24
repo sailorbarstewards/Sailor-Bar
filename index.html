@@ -147,6 +147,28 @@ details summary {
     margin-left: 24px;
     margin-top: 6px;
 }
+
+.legend-dot {
+    display:inline-block;
+    width:12px;
+    height:12px;
+    border-radius:50%;
+    margin-right:6px;
+}
+
+.native { background:#2E8B57; }
+
+.endemic { background:#006400; }
+
+.introduced { background:#FFFF99; }
+
+.watch { background:#FFD700; }
+
+.limited { background:#FF8C00; }
+
+.moderate { background:#DC143C; }
+
+.high { background:#8B0000; }
  
 .calipc-group {
   margin-left: 24px;
@@ -233,22 +255,6 @@ details summary {
     opacity: 0.9;
 
 }
- 
-.sites-header {
-
-    display: flex;
-
-    align-items: center;
-
-    gap: 10px;
-
-}
-
-.sites-header h3 {
-
-    margin: 0;
-
-}
 
 </style>
 
@@ -273,17 +279,15 @@ details summary {
        <details open id="layers-panel">
 
           <summary><b>Layers</b></summary>
-          <div class="sites-header">
+          <label class="filter-item">
 
            <input
-             type="checkbox"
-             id="sites-toggle">
-
-           <span class="section-label">
+           type="checkbox"
+           id="sites-toggle">
+           
            Stewardship Sites
-            </span>
-
-            </div>
+           
+           </label>
 
           <details open class="layer-settings">
 
@@ -301,32 +305,14 @@ Plant Observations
 <div class="opacity-control">
 
 <label class="filter-item">
-
 <input
     type="checkbox"
     id="native-filter"
     checked>
 
-<span style="
-display:inline-block;
-width:12px;
-height:12px;
-border-radius:50%;
-background:#2E8B57;
-margin-right:6px;
-"></span>
-
-<label class="filter-item">
-
-<input
-type="checkbox"
-id="native-filter"
-checked>
-
-<span ...></span>
+<span class="legend-dot native"></span>
 
 Native
-
 <span id="native-count"></span>
 
 </label>
@@ -339,14 +325,7 @@ Native
     id="endemic-filter"
     checked>
 
-<span style="
-display:inline-block;
-width:12px;
-height:12px;
-border-radius:50%;
-background:#006400;
-margin-right:6px;
-"></span>
+<span class="legend-dot endemic"></span>
 
 Endemic
 <span id="endemic-count"></span>
@@ -360,6 +339,8 @@ Endemic
     type="checkbox"
     id="nonnative-filter"
     checked>
+
+<span class="legend-dot moderate"></span>
 
 Non-Native
 <span id="nonnative-count"></span>
@@ -376,19 +357,87 @@ Invasiveness Categories (Cal-IPC)
 </summary>
 
 <div class="calipc-group">
-<p>California Invasive Plant Council (Cal-IPC) maintains an Inventory that categorizes plants that threaten California's natural systems.</p>
- 
- <li>High – These species have severe ecological impacts on physical processes, plant and animal communities, and vegetation structure. Their reproductive biology and other attributes are conducive to moderate to high rates of dispersal and establishment. Most are widely distributed ecologically.</li>
- <li>Moderate – These species have substantial and apparent-but generally not severe-ecological impacts on physical processes, plant and animal communities, and vegetation structure. Their reproductive biology and other attributes are conducive to moderate to high rates of dispersal, though establishment is generally dependent upon ecological disturbance. Ecological amplitude and distribution may range from limited to widespread.</li>
- <li>Limited – These species are invasive but their ecological impacts are minor on a statewide level or there was not enough information to justify a higher score. Their reproductive biology and other attributes result in low to moderate rates of invasiveness. Ecological amplitude and distribution are generally limited, but these species may be locally persistent and problematic.</li>
- <li>Watch – These species have been assessed as posing a high risk of becoming invasive in the future in California.</li>
- <a href="https://www.cal-ipc.org/plants/inventory" target="_blank">
-               Learn more
+         
+         <label class="filter-item">
+         <input type="checkbox"
+                id="introduced-filter"
+                checked>
+         
+          <span class="legend-dot introduced"></span>
+         
+         Introduced
+         <span id="introduced-count"></span>
+         </label>
+         
+         
+         <label class="filter-item">
+         <input type="checkbox"
+                id="watch-filter"
+                checked>
+         
+         <span class="legend-dot watch"></span>
+         
+         Watch
+         <span id="watch-count"></span>
+         </label>
+         
+         
+           <label class="filter-item">
+           <input type="checkbox"
+                id="limited-filter"
+                checked>
+
+           <span class="legend-dot limited"></span>
+
+           Limited
+           <span id="limited-count"></span>
+           </label>
+           
+           
+           <label class="filter-item">
+           <input type="checkbox"
+                  id="moderate-filter"
+                  checked>
+           
+          <span class="legend-dot moderate"></span>
+           
+           Moderate
+           <span id="moderate-count"></span>
+           </label>
+           
+           
+           <label class="filter-item">
+           <input type="checkbox"
+                  id="high-filter"
+                  checked>
+           
+           <span class="legend-dot moderate"></span>
+           
+           High
+           <span id="high-count"></span>
+           </label>
+           
+           <details class="info-box">
+             <summary>About Cal-IPC Ratings</summary>
+           
+             <p>
+               California Invasive Plant Council (Cal-IPC) maintains an Inventory that categorizes plants that threaten California's natural systems.
+             </p>
+           
+             <ul>
+               <li>High – These species have severe ecological impacts on physical processes, plant and animal communities, and vegetation structure. Their reproductive biology and other attributes are conducive to moderate to high rates of dispersal and establishment. Most are widely distributed ecologically.</li>               <li>High – These species have severe ecological impacts on physical processes, plant and animal communities, and vegetation structure. Their reproductive biology and other attributes are conducive to moderate to high rates of dispersal and establishment. Most are widely distributed ecologically.</li>
+               <li>Moderate – These species have substantial and apparent-but generally not severe-ecological impacts on physical processes, plant and animal communities, and vegetation structure. Their reproductive biology and other attributes are conducive to moderate to high rates of dispersal, though establishment is generally dependent upon ecological disturbance. Ecological amplitude and distribution may range from limited to widespread.</li>               <li>Moderate – These species have substantial and apparent-but generally not severe-ecological impacts on physical processes, plant and animal communities, and vegetation structure. Their reproductive biology and other attributes are conducive to moderate to high rates of dispersal, though establishment is generally dependent upon ecological disturbance. Ecological amplitude and distribution may range from limited to widespread.</li>
+               <li>Limited – These species are invasive but their ecological impacts are minor on a statewide level or there was not enough information to justify a higher score. Their reproductive biology and other attributes result in low to moderate rates of invasiveness. Ecological amplitude and distribution are generally limited, but these species may be locally persistent and problematic.</li>               <li>Limited – These species are invasive but their ecological impacts are minor on a statewide level or there was not enough information to justify a higher score. Their reproductive biology and other attributes result in low to moderate rates of invasiveness. Ecological amplitude and distribution are generally limited, but these species may be locally persistent and problematic.</li>
+               <li>Watch – These species have been assessed as posing a high risk of becoming invasive in the future in California.</li>
+             </ul>
+           
+             <a href="https://www.cal-ipc.org/plants/inventory" target="_blank">
              </a>
+           </details>
 
-</div>
+           </div>
 
-</details>
+          </details>
 
 
 <div class="inat-source">
@@ -461,10 +510,15 @@ Sailor Bar Biodiversity iNaturalist Project
 
 </details>
 
-    <summary>
-        <input type="checkbox" id="park-toggle">
-        Park Boundary
-    </summary>
+    <label class="filter-item">
+
+    <input
+    type="checkbox"
+    id="park-toggle">
+    
+    Park Boundary
+    
+    </label>
 
 </details>
 
