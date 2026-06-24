@@ -127,6 +127,66 @@ html, body, #map {
 
         <h3>Layers</h3>
 
+     <hr>
+
+<h3>Plant Observation Filters</h3>
+
+<label>
+<input type="checkbox" id="native-filter" checked>
+Native
+</label>
+
+<br>
+
+<label>
+<input type="checkbox" id="endemic-filter" checked>
+Endemic
+</label>
+
+<br>
+
+<label>
+<input type="checkbox" id="nonnative-filter" checked>
+Non-Native
+</label>
+
+<div style="margin-left:20px;">
+
+<label>
+<input type="checkbox" id="introduced-filter" checked>
+Introduced
+</label>
+
+<br>
+
+<label>
+<input type="checkbox" id="watch-filter" checked>
+Watch
+</label>
+
+<br>
+
+<label>
+<input type="checkbox" id="limited-filter" checked>
+Limited
+</label>
+
+<br>
+
+<label>
+<input type="checkbox" id="moderate-filter" checked>
+Moderate
+</label>
+
+<br>
+
+<label>
+<input type="checkbox" id="high-filter" checked>
+High
+</label>
+
+</div>
+
 <label>
     <input
         type="checkbox"
@@ -269,6 +329,21 @@ var parkBoundary;
         }
 
     });
+
+});
+
+var observationsLayer;
+var observationsData;
+
+fetch('data/inat_all.geojson')
+
+.then(response => response.json())
+
+.then(data => {
+
+    observationsData = data;
+
+    updateObservations();
 
 });
 
@@ -453,6 +528,198 @@ fetch('data/SailorBarSites.geojson')
     });
 
 });
+
+function getColor(feature) {
+
+    const est =
+        feature.properties.establishment;
+
+    const ipc =
+        feature.properties.IPC_Rating;
+
+    if (est === "native")
+        return "#2E8B57";
+
+    if (est === "endemic")
+        return "#006400";
+
+    if (ipc === "High")
+        return "#8B0000";
+
+    if (ipc === "Moderate")
+        return "#DC143C";
+
+    if (ipc === "Limited")
+        return "#FF8C00";
+
+    if (ipc === "Watch")
+        return "#FFD700";
+
+    return "#FFFF99";
+}
+
+function updateObservations() {
+
+    if (observationsLayer) {
+
+        map.removeLayer(observationsLayer);
+
+    }
+
+    observationsLayer = L.geoJSON(
+        observationsData,
+        {
+
+            filter: function(feature) {
+
+                const est =
+                    feature.properties.establishment;
+
+                const ipc =
+                    feature.properties.IPC_Rating;
+
+                if (
+                    est === "native" &&
+                    document.getElementById(
+                        "native-filter"
+                    ).checked
+                ) {
+                    return true;
+                }
+
+                if (
+                    est === "endemic" &&
+                    document.getElementById(
+                        "endemic-filter"
+                    ).checked
+                ) {
+                    return true;
+                }
+
+                if (
+                    est === "introduced"
+                ) {
+
+                    if (
+                        !document.getElementById(
+                            "nonnative-filter"
+                        ).checked
+                    ) {
+                        return false;
+                    }
+
+                    if (
+                        ipc === null &&
+                        document.getElementById(
+                            "introduced-filter"
+                        ).checked
+                    ) {
+                        return true;
+                    }
+
+                    if (
+                        ipc === "Watch" &&
+                        document.getElementById(
+                            "watch-filter"
+                        ).checked
+                    ) {
+                        return true;
+                    }
+
+                    if (
+                        ipc === "Limited" &&
+                        document.getElementById(
+                            "limited-filter"
+                        ).checked
+                    ) {
+                        return true;
+                    }
+
+                    if (
+                        ipc === "Moderate" &&
+                        document.getElementById(
+                            "moderate-filter"
+                        ).checked
+                    ) {
+                        return true;
+                    }
+
+                    if (
+                        ipc === "High" &&
+                        document.getElementById(
+                            "high-filter"
+                        ).checked
+                    ) {
+                        return true;
+                    }
+                }
+
+                return false;
+
+            },
+
+            pointToLayer: function(
+                feature,
+                latlng
+            ) {
+
+                return L.circleMarker(
+                    latlng,
+                    {
+
+                        radius: 4,
+
+                        fillColor:
+                            getColor(feature),
+
+                        color: "#333",
+
+                        weight: 1,
+
+                        fillOpacity: 0.8
+
+                    }
+                );
+
+            },
+
+            onEachFeature: function(
+                feature,
+                layer
+            ) {
+
+                layer.bindPopup(
+
+                    "<b>" +
+                    feature.properties.common_name +
+                    "</b><br>" +
+
+                    "<i>" +
+                    feature.properties.scientific_name +
+                    "</i><br>" +
+
+                    "Status: " +
+                    feature.properties.establishment +
+                    "<br>" +
+
+                    "Cal-IPC: " +
+                    (
+                        feature.properties.IPC_Rating ||
+                        "None"
+                    )
+
+                );
+
+            }
+
+        }
+    );
+
+    map.addLayer(
+        observationsLayer
+    );
+
+}
  
 
 document
@@ -597,6 +864,28 @@ document
         );
 
     }
+
+});
+
+[
+'native-filter',
+'endemic-filter',
+'nonnative-filter',
+'introduced-filter',
+'watch-filter',
+'limited-filter',
+'moderate-filter',
+'high-filter'
+
+].forEach(id => {
+
+    document
+        .getElementById(id)
+
+        .addEventListener(
+            'change',
+            updateObservations
+        );
 
 });
 
