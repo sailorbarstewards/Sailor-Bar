@@ -408,13 +408,19 @@ Sites
 
 <hr>
 
-<h3>Site Information</h3>
+     <details open id="site-info-panel">
+
+<summary>
+<b>Site Information</b>
+</summary>
 
 <div id="site-info">
 
     Click a site to view details.
 
 </div>
+
+</details>
 
 <script>
 
@@ -681,6 +687,14 @@ if (gallerySite) {
     )
     .removeAttribute(
         'open'
+    );
+                 document
+    .getElementById(
+        'site-info-panel'
+    )
+    .setAttribute(
+        'open',
+        ''
     );
 
                     document
