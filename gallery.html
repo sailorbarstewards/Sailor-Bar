@@ -23,6 +23,17 @@ body {
 
 }
 
+#gallery {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(auto-fill, minmax(250px, 1fr));
+
+    gap: 15px;
+
+}
+
 #gallery a {
 
     display: block;
@@ -33,7 +44,7 @@ body {
 
     width: 100%;
 
-    height: 250px;
+    height: 220px;
 
     object-fit: cover;
 
@@ -107,14 +118,23 @@ fetch('data/gallery.json')
             'img'
         );
 
-    img.src =
-        link.href;
+    img.src = link.href;
 
-    img.onerror = function() {
+img.onload = function() {
 
-        link.remove();
+    link.dataset.pswpWidth =
+        this.naturalWidth;
 
-    };
+    link.dataset.pswpHeight =
+        this.naturalHeight;
+
+};
+
+img.onerror = function() {
+
+    link.remove();
+
+};
 
     link.appendChild(
         img
