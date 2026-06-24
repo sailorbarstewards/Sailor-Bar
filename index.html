@@ -210,23 +210,12 @@ High
         type="checkbox"
         id="hillshade-toggle">
 
-    Lidar Hillshade (Elevation map)
+    Lidar Hillshade (Elevation Map)
 </label>
 
-<button
-    type="button"
-    id="hillshade-settings-btn">
+<details style="margin-left:20px; margin-top:5px;">
 
-    Settings
-
-</button>
-
-<div
-    id="hillshade-settings"
-    style="display:none; margin-left:20px; margin-top:5px;">
-
-    <small>Opacity</small>
-    <br>
+    <summary>Opacity</summary>
 
     <input
         type="range"
@@ -235,7 +224,7 @@ High
         max="100"
         value="35">
 
-</div>
+</details>
 <br>
 
      <label>
@@ -254,20 +243,9 @@ High
     2009 Satellite
 </label>
 
-<button
-    type="button"
-    id="naip-settings-btn">
+<details style="margin-left:20px; margin-top:5px;">
 
-    Settings
-
-</button>
-
-<div
-    id="naip-settings"
-    style="display:none; margin-left:20px; margin-top:5px;">
-
-    <small>Opacity</small>
-    <br>
+    <summary>Opacity</summary>
 
     <input
         type="range"
@@ -276,7 +254,7 @@ High
         max="100"
         value="100">
 
-</div>
+</details>
 <br>
 
 <label>
@@ -827,38 +805,6 @@ document
         panel.style.display = 'none';
 
     }
-
-});
-
-document
-.getElementById('hillshade-settings-btn')
-.addEventListener('click', function() {
-
-    const panel =
-        document.getElementById(
-            'hillshade-settings'
-        );
-
-    panel.style.display =
-        panel.style.display === 'none'
-            ? 'block'
-            : 'none';
-
-});
-
-document
-.getElementById('naip-settings-btn')
-.addEventListener('click', function() {
-
-    const panel =
-        document.getElementById(
-            'naip-settings'
-        );
-
-    panel.style.display =
-        panel.style.display === 'none'
-            ? 'block'
-            : 'none';
 
 });
 
