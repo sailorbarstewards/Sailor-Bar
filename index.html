@@ -104,6 +104,28 @@ html, body, #map {
     margin-top: 10px;
 
 }
+ 
+.site-photo {
+
+    width: 100%;
+
+    border-radius: 8px;
+
+    margin-top: 10px;
+
+    margin-bottom: 10px;
+
+    cursor: pointer;
+
+    transition: 0.2s;
+
+}
+
+.site-photo:hover {
+
+    opacity: 0.9;
+
+}
 
 </style>
 
@@ -365,7 +387,7 @@ High
 <input
     type="checkbox"
     id="sites-toggle">
-Show Stewardship Sites
+Stewardship Sites
 </label>
 
 <hr>
@@ -567,6 +589,68 @@ fetch('data/SailorBarSites.geojson')
                         feature.properties[
                             "Progress"
                         ];
+                 let gallerySite =
+    feature.properties[
+        "GallerySite"
+    ];
+
+let galleryURL = '';
+
+if (gallerySite) {
+
+    galleryURL =
+        'gallery.html?site=' +
+        encodeURIComponent(
+            gallerySite
+        );
+
+}
+
+let heroImage = '';
+
+if (
+    feature.properties["Hero"]
+) {
+
+    heroImage =
+
+        '<a href="' +
+
+        galleryURL +
+
+        '" target="_blank">' +
+
+        '<img class="site-photo" src="' +
+
+        feature.properties["Hero"] +
+
+        '">' +
+
+        '</a>';
+
+}
+
+let galleryLink = '';
+
+if (gallerySite) {
+
+    galleryLink =
+
+        '<p>' +
+
+        '<a href="' +
+
+        galleryURL +
+
+        '" target="_blank">' +
+
+        'View Gallery →' +
+
+        '</a>' +
+
+        '</p>';
+
+}
 
                     if (
                         !progress
@@ -577,19 +661,23 @@ fetch('data/SailorBarSites.geojson')
                     }
 
                     document
-                        .getElementById(
-                            'site-info'
-                        )
+                .getElementById(
+          'site-info'
+      )
 
-                        .innerHTML =
+    .innerHTML =
 
-                        '<h3 class="site-title">' +
+    '<h3 class="site-title">' +
 
-                        feature.properties[
-                            "Site Name"
-                        ] +
+    feature.properties[
+        "Site Name"
+    ] +
 
-                        '</h3>' +
+    '</h3>' +
+
+    heroImage +
+
+    galleryLink +
 
                         '<div class="site-section">' +
 
