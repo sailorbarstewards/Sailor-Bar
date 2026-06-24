@@ -123,6 +123,21 @@ details summary {
 
 }
  
+.layer-settings {
+    margin-top: 8px;
+    margin-bottom: 8px;
+}
+
+.layer-settings summary {
+    cursor: pointer;
+    font-size: 0.95em;
+}
+
+.opacity-control {
+    margin-left: 24px;
+    margin-top: 6px;
+}
+ 
 .calipc-group {
   margin-left: 24px;
   border-left: 2px solid #ddd;
@@ -219,247 +234,245 @@ details summary {
 
        <details open id="layers-panel">
 
-<summary>
-<b>Layers</b>
-</summary>
+          <summary><b>Layers</b></summary>
 
-     <hr>
+          <details open>
 
-<details open>
+          <summary><b>Plant Species Filters</b></summary>
 
-<summary>
-<b>Plant Species Filters</b>
-</summary>
+           <label class="master-filter">
+           <input type="checkbox" id="toggleAllPlants" checked>
+           <strong>All Plant Species</strong>
+           </label>
 
-<label class="master-filter">
-  <input type="checkbox" id="toggleAllPlants" checked>
-  <strong>All Plant Species</strong>
-</label>
+           <label class="filter-item">
+          <input type="checkbox"
+          id="native-filter"
+            checked>
 
-<label class="filter-item">
-<input type="checkbox"
-       id="native-filter"
-       checked>
+           <span style="
+          display:inline-block;
+          width:12px;
+          height:12px;
+          border-radius:50%;
+          background:#2E8B57;
+          margin-right:6px;
+          "></span>
 
-<span style="
-display:inline-block;
-width:12px;
-height:12px;
-border-radius:50%;
-background:#2E8B57;
-margin-right:6px;
-"></span>
-
-Native
-<span id="native-count"></span>
-</label>
+         Native
+        <span id="native-count"></span>
+        </label>
 
 
-<label class="filter-item">
-<input type="checkbox"
-       id="endemic-filter"
-       checked>
+        <label class="filter-item">
+        <input type="checkbox"
+        id="endemic-filter"
+        checked>
 
-<span style="
-display:inline-block;
-width:12px;
-height:12px;
-border-radius:50%;
-background:#006400;
-margin-right:6px;
-"></span>
+         <span style="
+         display:inline-block;
+         width:12px;
+         height:12px;
+         border-radius:50%;
+         background:#006400;
+         margin-right:6px;
+         "></span>
+         
+         Endemic
+         <span id="endemic-count"></span>
+         </label>
+         
+         
+         <label class="filter-item">
+         <input type="checkbox"
+                id="nonnative-filter"
+                checked>
+         
+         Non-Native
+         <span id="nonnative-count"></span>
+         </label>
+         
+         <details style="margin-left:20px; margin-top:8px;">
+         
+         <summary>
+         Invasiveness Categories (Cal-IPC)
+         </summary>
+         
+         <div class="calipc-group">
+         
+         <label class="filter-item">
+         <input type="checkbox"
+                id="introduced-filter"
+                checked>
+         
+         <span style="
+         display:inline-block;
+         width:12px;
+         height:12px;
+         border-radius:50%;
+         background:#FFFF99;
+         margin-right:6px;
+         "></span>
+         
+         Introduced
+         <span id="introduced-count"></span>
+         </label>
+         
+         
+         <label class="filter-item">
+         <input type="checkbox"
+                id="watch-filter"
+                checked>
+         
+         <span style="
+         display:inline-block;
+         width:12px;
+         height:12px;
+         border-radius:50%;
+         background:#FFD700;
+         margin-right:6px;
+         "></span>
+         
+         Watch
+         <span id="watch-count"></span>
+         </label>
+         
+         
+         <label class="filter-item">
+         <input type="checkbox"
+                id="limited-filter"
+                checked>
 
-Endemic
-<span id="endemic-count"></span>
-</label>
+         <span style="
+         display:inline-block;
+         width:12px;
+         height:12px;
+         border-radius:50%;
+         background:#FF8C00;
+         margin-right:6px;
+         "></span>
 
-
-<label class="filter-item">
-<input type="checkbox"
-       id="nonnative-filter"
-       checked>
-
-Non-Native
-<span id="nonnative-count"></span>
-</label>
-
-<details style="margin-left:20px; margin-top:8px;">
-
-<summary>
-Invasiveness Categories (Cal-IPC)
-</summary>
-
-<div class="calipc-group">
-
-<label class="filter-item">
-<input type="checkbox"
-       id="introduced-filter"
-       checked>
-
-<span style="
-display:inline-block;
-width:12px;
-height:12px;
-border-radius:50%;
-background:#FFFF99;
-margin-right:6px;
-"></span>
-
-Introduced
-<span id="introduced-count"></span>
-</label>
-
-
-<label class="filter-item">
-<input type="checkbox"
-       id="watch-filter"
-       checked>
-
-<span style="
-display:inline-block;
-width:12px;
-height:12px;
-border-radius:50%;
-background:#FFD700;
-margin-right:6px;
-"></span>
-
-Watch
-<span id="watch-count"></span>
-</label>
-
-
-<label class="filter-item">
-<input type="checkbox"
-       id="limited-filter"
-       checked>
-
-<span style="
-display:inline-block;
-width:12px;
-height:12px;
-border-radius:50%;
-background:#FF8C00;
-margin-right:6px;
-"></span>
-
-Limited
-<span id="limited-count"></span>
-</label>
-
-
-<label class="filter-item">
-<input type="checkbox"
-       id="moderate-filter"
-       checked>
-
-<span style="
-display:inline-block;
-width:12px;
-height:12px;
-border-radius:50%;
-background:#DC143C;
-margin-right:6px;
-"></span>
-
-Moderate
-<span id="moderate-count"></span>
-</label>
-
-
-<label class="filter-item">
-<input type="checkbox"
-       id="high-filter"
-       checked>
-
-<span style="
-display:inline-block;
-width:12px;
-height:12px;
-border-radius:50%;
-background:#8B0000;
-margin-right:6px;
-"></span>
-
-High
-<span id="high-count"></span>
-</label>
-
-<details class="info-box">
-  <summary>About Cal-IPC Ratings</summary>
-
-  <p>
-    California Invasive Plant Council (Cal-IPC) maintains an Inventory that categorizes plants that threaten California's natural systems.
-  </p>
-
-  <ul>
-    <li>High – These species have severe ecological impacts on physical processes, plant and animal communities, and vegetation structure. Their reproductive biology and other attributes are conducive to moderate to high rates of dispersal and establishment. Most are widely distributed ecologically.</li>
-    <li>Moderate – These species have substantial and apparent-but generally not severe-ecological impacts on physical processes, plant and animal communities, and vegetation structure. Their reproductive biology and other attributes are conducive to moderate to high rates of dispersal, though establishment is generally dependent upon ecological disturbance. Ecological amplitude and distribution may range from limited to widespread.</li>
-    <li>Limited – These species are invasive but their ecological impacts are minor on a statewide level or there was not enough information to justify a higher score. Their reproductive biology and other attributes result in low to moderate rates of invasiveness. Ecological amplitude and distribution are generally limited, but these species may be locally persistent and problematic.</li>
-    <li>Watch – These species have been assessed as posing a high risk of becoming invasive in the future in California.</li>
-  </ul>
-
-  <a href="https://www.cal-ipc.org/plants/inventory" target="_blank">
-    Learn more
-  </a>
-</details>
-</div>
-</details>
- <br>
+           Limited
+           <span id="limited-count"></span>
+           </label>
+           
+           
+           <label class="filter-item">
+           <input type="checkbox"
+                  id="moderate-filter"
+                  checked>
+           
+           <span style="
+           display:inline-block;
+           width:12px;
+           height:12px;
+           border-radius:50%;
+           background:#DC143C;
+           margin-right:6px;
+           "></span>
+           
+           Moderate
+           <span id="moderate-count"></span>
+           </label>
+           
+           
+           <label class="filter-item">
+           <input type="checkbox"
+                  id="high-filter"
+                  checked>
+           
+           <span style="
+           display:inline-block;
+           width:12px;
+           height:12px;
+           border-radius:50%;
+           background:#8B0000;
+           margin-right:6px;
+           "></span>
+           
+           High
+           <span id="high-count"></span>
+           </label>
+           
+           <details class="info-box">
+             <summary>About Cal-IPC Ratings</summary>
+           
+             <p>
+               California Invasive Plant Council (Cal-IPC) maintains an Inventory that categorizes plants that threaten California's natural systems.
+             </p>
+           
+             <ul>
+               <li>High – These species have severe ecological impacts on physical processes, plant and animal communities, and vegetation structure. Their reproductive biology and other attributes are conducive to moderate to high rates of dispersal and establishment. Most are widely distributed ecologically.</li>
+               <li>Moderate – These species have substantial and apparent-but generally not severe-ecological impacts on physical processes, plant and animal communities, and vegetation structure. Their reproductive biology and other attributes are conducive to moderate to high rates of dispersal, though establishment is generally dependent upon ecological disturbance. Ecological amplitude and distribution may range from limited to widespread.</li>
+               <li>Limited – These species are invasive but their ecological impacts are minor on a statewide level or there was not enough information to justify a higher score. Their reproductive biology and other attributes result in low to moderate rates of invasiveness. Ecological amplitude and distribution are generally limited, but these species may be locally persistent and problematic.</li>
+               <li>Watch – These species have been assessed as posing a high risk of becoming invasive in the future in California.</li>
+             </ul>
+           
+             <a href="https://www.cal-ipc.org/plants/inventory" target="_blank">
+               Learn more
+             </a>
+           </details>
+           </div>
+           </details>
+            <br>
  
-<label>
-    <input
-        type="checkbox"
-        id="hillshade-toggle">
+       <details class="layer-settings">
 
-    Lidar Hillshade (Elevation Map)
-</label>
+    <summary>
+        <input
+            type="checkbox"
+            id="hillshade-toggle">
+     
+        Lidar Hillshade
+    </summary>
 
-<details style="margin-left:20px; margin-top:5px;">
-
-    <summary>Opacity</summary>
-
-    <input
-        type="range"
-        id="opacity-slider"
-        min="0"
-        max="100"
-        value="35">
-
-</details>
-<br>
-      <label>
-    <input
-        type="checkbox"
-        id="naip2009-toggle">
-
-    2009 Satellite
-</label>
-
-<details style="margin-left:20px; margin-top:5px;">
-
-    <summary>Opacity</summary>
-
-    <input
-        type="range"
-        id="naip-opacity-slider"
-        min="0"
-        max="100"
-        value="100">
-
-</details>
-<br>
-
-<label>
-    <input
-        type="checkbox"
-        id="park-toggle">
-    Park Boundary
-</label>
+    <div class="opacity-control">
+        Opacity
         <br>
 
-<br><br>
-        
+        <input
+            type="range"
+            id="opacity-slider"
+            min="0"
+            max="100"
+            value="35">
+
+    </div>
+
+</details>
+
+<details class="layer-settings">
+
+    <summary>
+        <input
+            type="checkbox"
+            id="naip2009-toggle">
+
+        2009 Satellite
+    </summary>
+
+    <div class="opacity-control">
+
+        Opacity
+
+        <br>
+
+        <input
+            type="range"
+            id="naip-opacity-slider"
+            min="0"
+            max="100"
+            value="100">
+
+    </div>
+
+</details>
+
+    <label>
+        <input type="checkbox" id="park-toggle">
+        Park Boundary
+    </label>
+
 </details>
 
 <div class="sites-header">
