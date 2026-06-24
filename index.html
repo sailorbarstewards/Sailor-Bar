@@ -46,7 +46,20 @@ html, body, #map {
     box-shadow: 0 2px 10px rgba(0,0,0,0.25);
 
     font-family: Arial, sans-serif;
+ details {
 
+    margin-top: 8px;
+    margin-bottom: 8px;
+
+}
+
+summary {
+
+    cursor: pointer;
+
+    font-weight: bold;
+
+}
 }
 
 #toggle-sidebar {
@@ -147,7 +160,11 @@ html, body, #map {
 
         <hr>
 
-        <h3>Layers</h3>
+       <details open id="layers-panel">
+
+<summary>
+<b>Layers</b>
+</summary>
 
      <hr>
 
@@ -324,6 +341,7 @@ High
 </details>
 
 </details>
+       </details>
  <br>
 
 <label>
@@ -378,8 +396,6 @@ High
         <br>
 
 <br><br>
-    
-<hr>
 
 <h3>Stewardship Sites</h3>
 
@@ -387,7 +403,7 @@ High
 <input
     type="checkbox"
     id="sites-toggle">
-Stewardship Sites
+Sites
 </label>
 
 <hr>
@@ -659,6 +675,13 @@ if (gallerySite) {
                         progress =
                             'No progress notes available.';
                     }
+                 document
+    .getElementById(
+        'layers-panel'
+    )
+    .removeAttribute(
+        'open'
+    );
 
                     document
                 .getElementById(
