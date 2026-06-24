@@ -176,6 +176,28 @@ details summary {
   padding-left: 12px;
 }
 
+.filter-subgroup summary {
+
+    font-size: 0.95rem;
+
+    font-weight: normal;
+
+    cursor: pointer;
+
+}
+
+.calipc-label {
+
+    font-size: 0.8rem;
+
+    color: #777;
+
+    margin: 6px 0 10px 0;
+
+    font-style: italic;
+
+}
+ 
 .master-filter {
     display: block;
     padding-bottom: 8px;
@@ -333,30 +355,31 @@ Endemic
 </label>
 
 
-<label class="filter-item">
+<details class="filter-subgroup">
+
+<summary>
 
 <input
     type="checkbox"
     id="nonnative-filter"
-    checked>
+    checked
+    onclick="event.stopPropagation();">
 
+<span class="legend-dot introduced"></span>
 <span class="legend-dot moderate"></span>
 
 Non-Native
 <span id="nonnative-count"></span>
 
-</label>
-
-
-<details style="margin-top:8px;">
-
-<summary>
-
-Invasiveness Categories (Cal-IPC)
-
 </summary>
 
 <div class="calipc-group">
+
+<div class="calipc-label">
+
+Invasiveness Categories (Cal-IPC)
+
+</div>
          
          <label class="filter-item">
          <input type="checkbox"
@@ -435,7 +458,7 @@ Invasiveness Categories (Cal-IPC)
              </a>
            </details>
 
-           </div>
+          </div>
 
           </details>
 
