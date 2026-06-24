@@ -129,78 +129,186 @@ html, body, #map {
 
      <hr>
 
-<h3>Plant Observation Filters</h3>
+<details open>
+
+<summary>
+<b>Plant Species Filters</b>
+</summary>
+
+<br>
 
 <label>
-<input type="checkbox" id="native-filter" checked>
+<input type="checkbox"
+       id="native-filter"
+       checked>
+
+<span style="
+display:inline-block;
+width:12px;
+height:12px;
+border-radius:50%;
+background:#2E8B57;
+margin-right:6px;
+"></span>
+
 Native
+<span id="native-count"></span>
+
 </label>
 
-<br>
+<br><br>
 
 <label>
-<input type="checkbox" id="endemic-filter" checked>
+<input type="checkbox"
+       id="endemic-filter"
+       checked>
+
+<span style="
+display:inline-block;
+width:12px;
+height:12px;
+border-radius:50%;
+background:#006400;
+margin-right:6px;
+"></span>
+
 Endemic
+<span id="endemic-count"></span>
+
 </label>
 
-<br>
+<br><br>
 
 <label>
 <input type="checkbox"
        id="nonnative-filter"
        checked>
 
+<span style="
+display:inline-block;
+width:12px;
+height:12px;
+border-radius:50%;
+background:#AAAAAA;
+margin-right:6px;
+"></span>
+
 Non-Native
+<span id="nonnative-count"></span>
 </label>
 
-<details style="margin-left:20px;">
+<details style="margin-left:20px; margin-top:8px;">
 
 <summary>
-Cal-IPC Categories
+Invasiveness Categories (Cal-IPC)
 </summary>
+
+<br>
 
 <label>
 <input type="checkbox"
        id="introduced-filter"
        checked>
-Introduced
+
+<span style="
+display:inline-block;
+width:12px;
+height:12px;
+border-radius:50%;
+background:#FFFF99;
+margin-right:6px;
+"></span>
+
+Introduced (not considered invasive by Cal-IPC)
+<span id="introduced-count"></span>
+
 </label>
 
-<br>
+<br><br>
 
 <label>
 <input type="checkbox"
        id="watch-filter"
        checked>
+
+<span style="
+display:inline-block;
+width:12px;
+height:12px;
+border-radius:50%;
+background:#FFD700;
+margin-right:6px;
+"></span>
+
 Watch
+<span id="watch-count"></span>
+
 </label>
 
-<br>
+<br><br>
 
 <label>
 <input type="checkbox"
        id="limited-filter"
        checked>
+
+<span style="
+display:inline-block;
+width:12px;
+height:12px;
+border-radius:50%;
+background:#FF8C00;
+margin-right:6px;
+"></span>
+
 Limited
+<span id="limited-count"></span>
+
 </label>
 
-<br>
+<br><br>
 
 <label>
 <input type="checkbox"
        id="moderate-filter"
        checked>
+
+<span style="
+display:inline-block;
+width:12px;
+height:12px;
+border-radius:50%;
+background:#DC143C;
+margin-right:6px;
+"></span>
+
 Moderate
+<span id="moderate-count"></span>
+
 </label>
 
-<br>
+<br><br>
 
 <label>
 <input type="checkbox"
        id="high-filter"
        checked>
+
+<span style="
+display:inline-block;
+width:12px;
+height:12px;
+border-radius:50%;
+background:#8B0000;
+margin-right:6px;
+"></span>
+
 High
+<span id="high-count"></span>
+
 </label>
+
+</details>
 
 </details>
  <br>
@@ -336,7 +444,11 @@ fetch('data/inat_all.geojson')
 
     observationsData = data;
 
+    updateCategoryCounts();
+
     updateObservations();
+
+});
 
 });
 
@@ -549,6 +661,86 @@ function getColor(feature) {
         return "#FFD700";
 
     return "#FFFF99";
+}
+
+function updateCategoryCounts() {
+
+    let nativeCount = 0;
+    let endemicCount = 0;
+    let introducedCount = 0;
+    let watchCount = 0;
+    let limitedCount = 0;
+    let moderateCount = 0;
+    let highCount = 0;
+
+    observationsData.features.forEach(function(feature) {
+
+        const est =
+            feature.properties.establishment;
+
+        const ipc =
+            feature.properties.IPC_Rating;
+
+        if (est === "native")
+            nativeCount++;
+
+        if (est === "endemic")
+            endemicCount++;
+
+        if (est === "introduced") {
+
+            if (ipc === null)
+                introducedCount++;
+
+            else if (ipc === "Watch")
+                watchCount++;
+
+            else if (ipc === "Limited")
+                limitedCount++;
+
+            else if (ipc === "Moderate")
+                moderateCount++;
+
+            else if (ipc === "High")
+                highCount++;
+        }
+
+    });
+
+    document.getElementById(
+        "native-count"
+    ).innerHTML =
+        " (" + nativeCount + ")";
+
+    document.getElementById(
+        "endemic-count"
+    ).innerHTML =
+        " (" + endemicCount + ")";
+
+    document.getElementById(
+        "introduced-count"
+    ).innerHTML =
+        " (" + introducedCount + ")";
+
+    document.getElementById(
+        "watch-count"
+    ).innerHTML =
+        " (" + watchCount + ")";
+
+    document.getElementById(
+        "limited-count"
+    ).innerHTML =
+        " (" + limitedCount + ")";
+
+    document.getElementById(
+        "moderate-count"
+    ).innerHTML =
+        " (" + moderateCount + ")";
+
+    document.getElementById(
+        "high-count"
+    ).innerHTML =
+        " (" + highCount + ")";
 }
 
 function updateObservations() {
@@ -806,6 +998,19 @@ document
 
 });
 
+document.getElementById(
+    "nonnative-count"
+).innerHTML =
+    " (" +
+    (
+        introducedCount +
+        watchCount +
+        limitedCount +
+        moderateCount +
+        highCount
+    ) +
+    ")";
+ 
 document
 .getElementById('sites-toggle')
 .addEventListener('change', function(e) {
