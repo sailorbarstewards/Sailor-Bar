@@ -151,25 +151,18 @@ attribution: 'Esri'
 
 esri.addTo(map);
  
-var naip2009 = L.tileLayer(
-'https://gis.wildlife.ca.gov/images/rest/services/Base_Remote_Sensing/NAIP_2009/ImageServer/tile/{z}/{y}/{x}',
-{
-maxZoom:21,
-attribution: '2008 NAIP'
-}
-);
+var naip2009 = L.esri.imageMapLayer({
+    url: 'https://gis.wildlife.ca.gov/images/rest/services/Base_Remote_Sensing/NAIP_2009/ImageServer',
+    opacity: 1
+});
 
 
-var hillshade = L.tileLayer(
-'https://elevation.nationalmap.gov/arcgis/rest/services/3DEPElevation/ImageServer/tile/{z}/{x}/{y}.png',
-{
-maxZoom:21,
-opacity:0.35,
-attribution: 'USGS 3DEP'
+var hillshade = L.esri.ImageMapLayer({
+    url: 'https://elevation.nationalmap.gov/arcgis/rest/services/3DEPElevation/ImageServer',
+    opacity: 1
 }
 );
 hillshade.addTo(map);
-
 
 var parkBoundary;
  fetch('data/Sailor_Bar_Park.geojson')
