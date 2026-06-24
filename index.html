@@ -159,6 +159,7 @@ html, body, #map {
         value="35">
 
 </div>
+<br>
 
      <label>
     <input
@@ -199,6 +200,7 @@ html, body, #map {
         value="100">
 
 </div>
+<br>
 
 <label>
     <input
@@ -219,18 +221,6 @@ html, body, #map {
 <div id="site-info">
 
     Click a site to view details.
-
-</div>
-     
-        Data Sources
-
-        <small>
-            • USGS 2019 Digital Elevation Model<br>
-            • NAIP 2008 Imagery<br>
-            • Esri World Imagery
-        </small>
-
-    </div>
 
 </div>
 
@@ -259,35 +249,6 @@ var hillshade = L.esri.imageMapLayer({
     opacity: 0.50
 });
 hillshade.addTo(map);
-
-var restorationSites;
-
-fetch('data/SailorBarSites.geojson')
-.then(response => response.json())
-.then(data => {
-
-    restorationSites = L.geoJSON(data, {
-
-        style: {
-            color: '#228B22',
-            weight: 2,
-            fillOpacity: 0.4
-        },
-
-        onEachFeature: function(feature, layer) {
-
-            layer.bindPopup(
-                '<h3>' + feature.properties.SiteName + '</h3>' +
-                '<b>Status:</b> ' + feature.properties.Status + '<br>' +
-                '<b>Species:</b><br>' +
-                feature.properties.Species
-            );
-
-        }
-
-    });
-
-});
 
 var parkBoundary;
  fetch('data/Sailor_Bar_Park.geojson')
