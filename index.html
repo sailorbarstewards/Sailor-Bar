@@ -215,19 +215,23 @@ details summary {
 
 .info-box {
     margin-top: 10px;
-    font-size: 0.82rem;
-    color: #666;
+    font-size: 0.8rem;
+    color: #777;
 }
 
 .info-box summary {
     cursor: pointer;
+    font-size: 0.78rem;
+    font-style: italic;
     font-weight: normal;
-    color: #666;
+    color: #777;
     list-style-position: inside;
+    transition: opacity 0.15s ease;
 }
 
 .info-box summary:hover {
-    color: #2E8B57;
+    color: inherit;
+    opacity: 0.75;
 }
 
 .info-box ul {
@@ -447,7 +451,7 @@ Invasiveness Categories (Cal-IPC)
            </label>
            
            <details class="info-box">
-             <summary>Learn about Cal-IPC Ratings</summary>
+             <summary>About Cal-IPC Ratings</summary>
            
              <p>
                California Invasive Plant Council (Cal-IPC) maintains an Inventory that categorizes plants that threaten California's natural systems.
